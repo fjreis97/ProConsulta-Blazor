@@ -1,0 +1,65 @@
+﻿@page "/medicos/create"
+@inherits CreateMedicoPage
+
+<PageTitle>Médicos</PageTitle>
+
+<MudText Typo="Typo.h3">Cadastro de Médicos</MudText>
+
+<MudPaper Class="pa-9 mt-4">
+
+    <EditForm Model="@MedicoInput" OnValidSubmit="OnvalidSubmitAsync">
+        <DataAnnotationsValidator />
+
+        <MudTextField Label="Nome"
+                      Variant="Variant.Outlined"
+                      HelperText="Campo Obrigatório"
+                      @bind-Value="MedicoInput.Nome"
+                      For="@(() => MedicoInput.Nome)" />
+
+        <MudTextField Label="Documento"
+                      Variant="Variant.Outlined"
+                      HelperText="Campo Obrigatório"
+                      @bind-Value="MedicoInput.Documento"
+                      Mask="@(new PatternMask("000.000.000-00"))"
+                      For="@(() => MedicoInput.Documento)" />
+
+        <MudTextField Label="CRM"
+                      Variant="Variant.Outlined"
+                      HelperText="Campo Obrigatório"
+                      @bind-Value="MedicoInput.CRM"
+                      For="@(() => MedicoInput.CRM)"
+                      Mask="@(new PatternMask("aa-000000"))" />
+
+        <MudTextField Label="Celular"
+                      Variant="Variant.Outlined"
+                      HelperText="Campo Obrigatório"
+                      @bind-Value="MedicoInput.Celular"
+                      For="@(() => MedicoInput.Celular)"
+                      Mask="@(new PatternMask("(00) 0 0000-0000 "))" />
+
+
+        <MudSelect Label="Especialidade"
+                   @bind-Value="MedicoInput.EspecialidadeId"
+                   Variant="Variant.Outlined"
+                   AnchorOrigin="Origin.BottomCenter"
+                   For="@(() => MedicoInput.EspecialidadeId)">
+
+            @foreach (var especialidade in Especialidades)
+            {
+                <MudSelectItem Value="@(especialidade.Id)">@especialidade.Nome</MudSelectItem>
+            }
+
+            </MudSelect>
+            <MudDivider Class="m-4"/>
+
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.Save"
+                       Color="Color.Info"
+                       Size="Size.Large"
+                       ButtonType="ButtonType.Submit">
+                Salvar
+            </MudButton>
+
+    </EditForm>
+
+</MudPaper>

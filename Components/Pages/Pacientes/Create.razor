@@ -1,0 +1,48 @@
+﻿@page "/pacientes/create"
+@inherits CreatePacientePage
+
+<MudText Typo="Typo.h3">Cadastro de Pacientes</MudText>
+
+<MudPaper Class="pa-8 mt-4">
+   <EditForm Model="@pacienteInput" OnValidSubmit="OnValidSubmitAsync">
+        <DataAnnotationsValidator />
+       <MudTextField Label="Nome" Variant="Variant.Outlined"
+       @bind-Value="pacienteInput.Nome"
+       For="@(()=> pacienteInput.Nome)" />
+
+        <MudTextField Label="Documento" Variant="Variant.Outlined"
+                      @bind-Value="pacienteInput.Documento"
+                      For="@(() => pacienteInput.Documento)" 
+                      Mask="@(new PatternMask("000.000.000-00"))"/>
+
+
+        <MudTextField Label="E-mail" Variant="Variant.Outlined"
+                      @bind-Value="pacienteInput.Email"
+                      For="@(() => pacienteInput.Email)" />
+
+
+        <MudTextField Label="Celular" Variant="Variant.Outlined"
+                      @bind-Value="pacienteInput.Celular"
+                      For="@(() => pacienteInput.Celular)"
+                      Mask="@(new PatternMask("(00) 0 0000-0000 "))"/>
+
+
+        <MudDatePicker Label="Data de Nascimento"
+            Editable="false"
+            @bind-Date="DataNascimento"
+            Variant="Variant.Outlined"
+            MaxDate="@MaxDate"
+            Placeholder="Data de Nascimento"/>
+
+            <MudDivider Class="m-4"/>
+
+            <MudButton Variant="Variant.Filled"
+            StartIcon="@Icons.Material.Filled.Save"
+            Color="Color.Info"
+            Size="Size.Large"
+            ButtonType="ButtonType.Submit">
+        Salvar
+        </MudButton>
+          
+    </EditForm>
+</MudPaper>
