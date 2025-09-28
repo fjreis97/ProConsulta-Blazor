@@ -1,5 +1,56 @@
 ﻿@page "/agendamentos/create"
+@inherits CreateAgendamentoPage
 
-@code {
+<PageTitle>Agendamentos</PageTitle>
 
-}
+<MudText Typo="Typo.h3">Cadastro de Agendamentos</MudText>
+
+<MudPaper Class="pa-8 mt-4">
+
+    <EditForm Model="@InputModel" OnValidSubmit="OnvalidSubmitAsync">
+        <DataAnnotationsValidator />
+
+        <MudTextField Label="Observação" Variant="Variant.Outlined"
+                      @bind-Value="InputModel.Observacao"
+                      For="@(() => InputModel.Observacao)" />
+
+        <MudSelect Label="Pacientes" Variant="Variant.Outlined"
+                   AnchorOrigin="Origin.BottomCenter"
+                   @bind-Value=InputModel.PacienteId>
+            @foreach (var paciente in Pacientes)
+            {
+                <MudSelectItem Value="@paciente.Id">@paciente.Nome</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect Label="Medicos" Variant="Variant.Outlined"
+                   AnchorOrigin="Origin.BottomCenter"
+                   @bind-Value=InputModel.MedicoId>
+            @foreach (var medico in Medicos)
+            {
+                <MudSelectItem Value="@medico.Id">@medico.Nome</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudDatePicker Variant="Variant.Outlined"
+                       @bind-Date="date"
+                       Label="data do agendamento"
+                       MinDate="minDate"
+                       DateFormat="dd/MM/yyyy" />
+
+        <MudTimePicker @bind-Time="time"
+                       Variant="Variant.Outlined"
+                       Label="Hora do Agendamento"
+                       AmPm="false" />
+
+        <MudDivider Class="m-4" />
+
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Color="Color.Info"
+                   Size="Size.Large"
+                   ButtonType="ButtonType.Submit">
+            Salvar
+        </MudButton>
+    </EditForm>
+</MudPaper>

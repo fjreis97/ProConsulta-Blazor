@@ -30,6 +30,8 @@ public class AgendamentoRepository : IAgendamentoRepository
     {
         return await _context.Agendamentos
             .AsNoTracking()
+            .Include(a => a.Paciente)
+            .Include(a => a.Medico)
             .ToListAsync();
     }
     public async Task<Agendamento?> GetByIdAsync(int id)
