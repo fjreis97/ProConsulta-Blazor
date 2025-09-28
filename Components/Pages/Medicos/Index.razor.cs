@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using ProConsulta.Models;
 using ProConsulta.Repositories.Interfaces;
@@ -21,6 +22,11 @@ public class IndexMedicoPage : ComponentBase
 
     public List<Medico> Medicos { get; set; } = new List<Medico>();
 
+    public bool HideButtons { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
     public async Task DeleteMedicoAsync(Medico medico)
     {
         bool? result = await DialogService.ShowMessageBox(
@@ -42,11 +48,14 @@ public class IndexMedicoPage : ComponentBase
         }
     }
 
+
     public void GoToUpdatePage(int id) 
         => Navigation.NavigateTo($"/medicos/update/{id}");
 
     protected override async Task OnInitializedAsync()
     {
+        var auth = await AuthenticationState;
+        HideButtons = !auth.User.IsInRole("Atendente");
         Medicos = await repository.GetAllAsync();
     }
 

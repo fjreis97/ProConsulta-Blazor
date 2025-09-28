@@ -1,6 +1,8 @@
 ﻿@page "/medicos"
+@using Microsoft.AspNetCore.Authorization
 
 @inherits IndexMedicoPage
+@attribute [Authorize(Roles = "Atendente")]
 
 <PageTitle>Médicos</PageTitle>
 
@@ -29,11 +31,13 @@
             <CellTemplate>
                 <MudStack Row>
                     <MudFab Size="Size.Small" Label="Editar"
+                            hidden="@HideButtons"
                             OnClick="() => GoToUpdatePage(context.Item.Id)"
                             StartIcon="@Icons.Material.Filled.Edit"
                             Color="Color.Success" />
 
                     <MudFab Size="Size.Small" Label="Excluir"
+                            hidden="@HideButtons"
                             OnClick="() => DeleteMedicoAsync(context.Item)"
                             StartIcon="@Icons.Material.Filled.Delete"
                             Color="Color.Error"></MudFab>
