@@ -4,38 +4,39 @@
 <MudText Typo="Typo.h3">Pacientes</MudText>
 
 <MudButton Variant="Variant.Filled"
-StartIcon="@Icons.Material.Filled.Add"
-Color="Color.Info"
-Size="Size.Large"
-Href="/pacientes/create"
-Class="mt-md-4 mb-4"
->Novo Paciente</MudButton>
+           StartIcon="@Icons.Material.Filled.Add"
+           Color="Color.Info"
+           Size="Size.Large"
+           Href="/pacientes/create"
+           Class="mt-md-4 mb-4">Novo Paciente</MudButton>
 
 
-<MudDataGrid items="@Pacientes" Filterable="true" Bordered="true" SortMode="@SortMode.Single" 
-Groupable="false">
+<MudDataGrid items="@Pacientes" Filterable="true" Bordered="true" SortMode="@SortMode.Single"
+             Groupable="false">
     <Columns>
-        <PropertyColumn Property="p => p.Nome"  />
-        <PropertyColumn Property="p => p.Documento"  />
-        <PropertyColumn Property="p => p.Email"  />
-        <PropertyColumn Property="p => p.Celular"  />
+        <PropertyColumn Property="p => p.Nome" />
+        <PropertyColumn Property="p => p.Documento" />
+        <PropertyColumn Property="p => p.Email" />
+        <PropertyColumn Property="p => p.Celular" />
         <PropertyColumn Property="p => p.DataNascimento" Format="dd/MM/yyyy" />
-            <TemplateColumn>
-                <CellTemplate>
-                    <MudStack Row>
+        <TemplateColumn>
+            <CellTemplate>
+                <MudStack Row>
                     <MudFab Size="Size.Small" Label="Editar"
+                            hidden="@HideButtons"
                             OnClick="() => GoToUpdate(context.Item.Id)"
                             StartIcon="@Icons.Material.Filled.Edit"
                             Color="Color.Success" />
 
-                        <MudFab Size="Size.Small" Label="Excluir" 
-                        OnClick="() => DeletePaciente(context.Item)" 
-                        StartIcon="@Icons.Material.Filled.Delete" 
-                        Color="Color.Error"></MudFab>
-                    </MudStack>
-                </CellTemplate>
-            </TemplateColumn>
+                    <MudFab Size="Size.Small" Label="Excluir"
+                            hidden="@HideButtons"
+                            OnClick="() => DeletePaciente(context.Item)"
+                            StartIcon="@Icons.Material.Filled.Delete"
+                            Color="Color.Error"></MudFab>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
 
     </Columns>
 </MudDataGrid>
-            
+

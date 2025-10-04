@@ -5,7 +5,6 @@
 
 <MudText Typo="Typo.h3">Agendamentos</MudText>
 
-
 <MudButton Variant="Variant.Filled"
            StartIcon="@Icons.Material.Filled.Add"
            Color="Color.Info"
@@ -36,13 +35,11 @@
                 </MudChip>
 
                 <MudFab Size="Size.Small"
+                        hidden="@HideButtons"
                         OnClick="() => DeleteAgendamento(agendamento.Id)"
                         StartIcon="@Icons.Material.Filled.Delete"
                         Color="Color.Error" />
             </MudStack>
-
-
-
         </MudPaper>
     }
 </MudStack>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProConsulta.Data;
 using ProConsulta.Models;
+using ProConsulta.Models.Dtos.ViewModel;
 using ProConsulta.Repositories.Interfaces;
 
 namespace ProConsulta.Repositories;
@@ -44,5 +45,15 @@ public class AgendamentoRepository : IAgendamentoRepository
     {
         _context.Update(Agendamento);
         await _context.SaveChangesAsync();
+    }
+
+
+    //Reports
+
+    public async Task<List<AgendamentosAnuais>> GetReportAsync()
+    {
+        var result = _context.Database.
+            SqlQuery<AgendamentosAnuais>($"SELECT MONTH(DataConsulta) AS Mes, COUNT(*) AS QuantidadeAgendamentos FROM dbo.Agendamentos WHERE  YEAR(DataConsulta) = '2025' GROUP BY MONTH(DataConsulta)");
+        return await Task.FromResult(result.ToList());
     }
 }

@@ -1,5 +1,8 @@
 ﻿@page "/medicos/create"
+@using Microsoft.AspNetCore.Authorization
 @inherits CreateMedicoPage
+
+@attribute [Authorize(Roles = "Atendente")]
 
 <PageTitle>Médicos</PageTitle>
 

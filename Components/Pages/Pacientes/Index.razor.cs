@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using ProConsulta.Models;
 using ProConsulta.Repositories.Interfaces;
@@ -21,6 +22,10 @@ public class IndexPage :ComponentBase
 
     public List<Paciente> Pacientes = new();
 
+    public bool HideButtons { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
     public async Task DeletePaciente(Paciente paciente)
     {
         try
@@ -49,6 +54,8 @@ public class IndexPage :ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
+        var auth = await AuthenticationState;
+        HideButtons = !auth.User.IsInRole("Atendente");
         Pacientes = await repository.GetAllAsync();
     }
 

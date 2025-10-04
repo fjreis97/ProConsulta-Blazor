@@ -17,9 +17,4 @@
     <PackageReference Include="Extensions.MudBlazor.StaticInput" Version="3.*" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Models\Dtos\ViewModel\" />
-  </ItemGroup>
-
 </Project>

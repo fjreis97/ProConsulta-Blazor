@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using ProConsulta.Repositories.Interfaces;
 
@@ -19,6 +20,10 @@ public class IndexAgendamentoPage : ComponentBase
     public NavigationManager Navigation { get; set; } = null!;
     public List<ProConsulta.Models.Agendamento> Agendamentos { get; set; } = new List<ProConsulta.Models.Agendamento>();
 
+    public bool HideButtons { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
     public async Task DeleteAgendamento(int agendamentoId)
     {
         bool? result = await Dialog.ShowMessageBox(
@@ -43,6 +48,8 @@ public class IndexAgendamentoPage : ComponentBase
 
     override protected async Task OnInitializedAsync()
     {
+        var auth = await AuthenticationState;
+        HideButtons = !auth.User.IsInRole("Atendente");
         Agendamentos = await agendamentoRepository.GetAllAsync();
     }
 
